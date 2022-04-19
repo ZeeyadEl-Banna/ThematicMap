@@ -217,7 +217,13 @@ document.getElementById("button").addEventListener("click", (e) => {
     //   }).addTo(map);
 
     // console.log(result.features)
-    if (result.features !== undefined) {
+    let counter = []
+    for(i=0;i<result.features.length;i++){
+        counter.push(result.features[i].properties.Confirmed)
+    }
+    console.log(counter)
+    let max = Math.max(...counter)
+    if (max !== 0) {
       // console.log(result.features);
       if (document.getElementsByClassName("legend").length != 0) {
         let element = document.getElementsByClassName("legend")[0];
@@ -296,8 +302,9 @@ document.getElementById("button").addEventListener("click", (e) => {
         return div;
       };
       legend.addTo(map);
-    } else if (result.features == undefined) {
+    } else if (max == 0) {
       console.log("second");
+      // finalRender(result)
       asyncCall();
     }
   };
